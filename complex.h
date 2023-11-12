@@ -64,9 +64,9 @@ void comparsion(){
     /*...*/
 }
 template<class T>
-inline T g(T) { /* ... */ }
+inline void g(T) { /* ... */ }
 template<>
-int g<>(int) { /* ... */ }
+void g<>(int) { /* ... */ }
 
 int n = static_cast<int>(complex());
 template<class T>
@@ -77,7 +77,7 @@ struct table {
 // template<double r>
 //template<string name> error: string is ambiguous
 
-template<int const * x>
-int et(){cout<<*x<<endl;}
+template<int * x>
+void et(){cout<<*x<<endl;}
 
 #endif

@@ -1,5 +1,9 @@
-/* #include<bits/stdc++.h>
+#include<iostream>
+#include<random>
+#include<chrono>
 using namespace std;
+
+
 template <int n>
 struct factorial {
   static const int value =
@@ -20,19 +24,21 @@ template <>
 struct factorial<0> {
   static const int value = 1;
 };
+
+
 template<typename T>
 void f(T ans){cout<<typeid(1).name()<<endl;}
-/* template<size_t w, size_t h>
-void f(double (&s)[w][h]){cout<<s[0]<<endl;} */
+template<size_t w, size_t h>
+void f(double (&s)[w][h]){cout<<s[0]<<endl;} 
 /*int main(){
     cout<<factorial<5>().value<<endl;
  
     double v[10][20];
     f(v);
-} */
+}*/
 
 
-#include <iostream>
+//#include <iostream>
 
 struct foo
 {
@@ -55,15 +61,16 @@ void logAndProcess(T&& param)
     auto now =                              //获取现在时间
         std::chrono::system_clock::now();
     
-    makeLogEntry("Calling 'process'", now);
+    //makeLogEntry("Calling 'process'", now);
     process(std::forward<T>(param));
 }
 
 int main()
 {
-    foo f;
-    f(1.2);
-    f(1);
-    f(1); // <-- ERROR: doesn't work!
-    std::cout<<__cplusplus<<std::endl;
+    foo fo;
+    fo(1.2);
+    fo(1);
+    fo(1); // <-- ERROR: doesn't work!
+    //std::cout<<__cplusplus<<std::endl;
+    //std::cout<<factorial::value<<std::endl;
 }

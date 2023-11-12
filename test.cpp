@@ -14,19 +14,16 @@
 using namespace std;
 // using namespace std::literals;
 void g()
-{  
-    thread_local int i;
-    constexpr int n = 0;
+{
+    const int n = 0;
  
-    constexpr int i = *&n;
-    cout<<&n<<endl; // OK: outside of a lambda-expression
+    constexpr int j = *&n; 
  
-    [&]
+    [=]
     {
-        constexpr int i = n;   // OK: 'n' is not odr-used and not captured here.
-        int j = *&n; // Ill-formed: '&n' would be an odr-use of 'n'. 
-        cout<<&n<<endl;
-    }();
+        constexpr int i = n;  
+        //constexpr int j = *&n;
+    };
 }
 constexpr int incr(int& n)
 {
@@ -62,13 +59,14 @@ int pow(int base, int exp) noexcept         //constexpr函数
 constexpr auto numConds = 5;                //（上面例子中）条件的个数
   //结果有3^numConds个元素010200
 int nums[] = {1,2,3,4,5,6};
-static const int i1 = 4;
+static int i1 = 4;
 int&& i2 = 42;
 
 template<typename T>
 decltype(auto) move(T&& param)          //C++14，仍然在std命名空间
 {
     using ReturnType = remove_reference_t<T>&&;
+    const int a;
     return static_cast<ReturnType>(param);
     
 }
@@ -84,7 +82,10 @@ enum class Sound { Beep, Siren, Whistle };
 
 //时间段的类型定义
 using Duration = std::chrono::steady_clock::duration;
-void setAlarm(Time t, Sound s, Duration d);
+void setAlarm(Time t, Sound s, Duration d)
+{
+    return;
+}
 //A a[2](A(1)); // OK：以 A(1) 初始化 a[0] 并以 A() 初始化 a[1]
 //A b[2]{A(1)}; // 错误：从 {} 隐式复制初始化 b[1] 选择了 explicit 构造函数
 A c = {A(2)};
@@ -92,11 +93,12 @@ int S(0);
 //typedef vector<T> vec;
 int main()
 {
+    
     complex a(2,2);
     complex b(2,1);
     complex c = complex(1,2);
     complex e = complex();
-    complex d = {1,2};
+    complex d = {1,2}; 
     complex f = {};
     a+=complex(1,2);
     a+=b;
@@ -105,8 +107,10 @@ int main()
     complex* p = new complex();
     cout<<sizeof(*p)<<endl;
     int *i = &au;
-    complex *j = new complex[au]{1,2};
-    chrono::duration<int, ratio<100, 1>> setter(3);
+    complex *j = new complex[au]{(1,0),(2,3),(1)};
+    cout<<j[0].real()<<'\n';
+    // sizeof(j[0].imag());
+    /* chrono::duration<int, ratio<100, 1>> setter(3);
     cout<<sizeof(i)<<endl; 
     delete p;
     auto teaser = [](complex a, complex b)->complex{return a.real()+b.real();};
@@ -114,7 +118,9 @@ int main()
     static_assert(sizeof(complex), "complex");
     std::vector<complex, allocator<complex>>();
     vec<int> T;
-    T.push_back(1);
+    T.push_back(au);
+    T.emplace_back(au);
+    ++++au;
     comparsion(1,2,3,4,5,6,7,8,9,10,11);
     table<int>::type T1;
     T1.push_back(1);
@@ -163,6 +169,7 @@ int main()
     // int y2 = martix(1);
     // cout<<y2<<endl;
     multiset<std::string>mset;
+    mset.insert("x");
     mset.emplace("x");
     mset.emplace("x");
     testReturn();
@@ -176,6 +183,6 @@ int main()
               _1,
               30s);
     1h;
-    // std::atomic_thread_fence();
+    // std::atomic_thread_fence(); */
     return 0;
 }
