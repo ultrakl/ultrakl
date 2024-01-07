@@ -107,7 +107,7 @@ int main()
     complex* p = new complex();
     cout<<sizeof(*p)<<endl;
     int *i = &au;
-    complex *j = new complex[au]{(1,0),(2,3),(1)};
+    complex *j = new complex[au]{{1,0},{2,3},{1}};
     cout<<j[0].real()<<'\n';
     // sizeof(j[0].imag());
     /* chrono::duration<int, ratio<100, 1>> setter(3);

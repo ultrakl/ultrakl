@@ -67,6 +67,7 @@ void logAndProcess(T&& param)
 
 int main()
 {
+    ratio_multiply<std::ratio<1, 1000>, std::micro>::type;
     foo fo;
     fo(1.2);
     fo(1);
